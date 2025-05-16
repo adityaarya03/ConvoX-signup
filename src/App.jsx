@@ -1,16 +1,15 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
-import './App.css'
+import React from 'react';
+import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-dom';
+import SignupPage from './pages/SignupPage.jsx';
 
-function App() {
-  const [count, setCount] = useState(0)
-
+export default function App() {
   return (
-    <div className=' flex justify-center items-center h-screen bg-blue-600'>
-      ConvoX
-    </div>
-  )
+    <Router>
+      <Routes>
+        <Route path="/signup" element={<SignupPage/>} />
+        {/* You can add other routes here */}
+        <Route path="*" element={<Navigate to="/signup" replace />} />
+      </Routes>
+    </Router>
+  );
 }
-
-export default App

@@ -1,0 +1,30 @@
+
+.left-panel {
+  background: linear-gradient(
+    to bottom,
+    #0575E6 0%,
+    #02298a 85%,
+    #021B79 100%
+  );
+}
+@keyframes floatRandom {
+  0% {
+    transform: translate(0, 0) scale(1);
+  }
+  25% {
+    transform: translate(-20px, 30px) scale(1.05);
+  }
+  50% {
+    transform: translate(30px, -20px) scale(1);
+  }
+  75% {
+    transform: translate(-15px, -25px) scale(0.95);
+  }
+  100% {
+    transform: translate(0, 0) scale(1);
+  }
+}
+
+.animate-float-random {
+  animation: floatRandom 12s ease-in-out infinite;
+}
