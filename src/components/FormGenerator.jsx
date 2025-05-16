@@ -85,13 +85,13 @@ export default function FormGenerator({
                 <button
                   type="button"
                   onClick={prevStep}
-                  className="bg-white text-[#0575e6] border border-[#0575e6] px-4 py-2 rounded-[50px] hover:bg-[#0575e6] hover:border-0 hover:text-white transition"
+                  className="bg-white text-[#0575e6] h-13 border border-[#0575e6] px-4 py-2 rounded-[50px] hover:bg-[#0575e6] hover:border-0 hover:text-white transition"
                 >
                   Back
                 </button>
                 <button
                   type="submit"
-                  className="bg-[#0575e6] text-white px-4 py-3 rounded-[50px] hover:bg-[#1e8cfa] transition"
+                  className="bg-[#0575e6] text-white h-13 px-4 py-3 rounded-[50px] hover:bg-[#1e8cfa] transition"
                 >
                   Continue
                 </button>
@@ -99,7 +99,7 @@ export default function FormGenerator({
             ) : (
               <button
                 type="submit"
-                className="bg-[#0575e6] text-white px-4 py-3 rounded-[50px] w-full hover:bg-[#1e8cfa] transition"
+                className="bg-[#0575e6] text-white px-4 py-3 h-13 rounded-[50px] w-full hover:bg-[#1e8cfa] transition"
               >
                 Continue
               </button>

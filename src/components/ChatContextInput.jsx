@@ -83,7 +83,7 @@ export default function ChatContextInput({ onSubmit, onBack }) {
               onChange={(e) => setInput(e.target.value)}
               onKeyDown={handleKeyDown}
               placeholder="Type a message..."
-              className="flex-grow max-h-[2.5rem] resize-none overflow-auto border border-gray-300 rounded-full px-4 py-2 outline-none focus:ring-1 focus:ring-blue-400"
+              className="flex-grow h-13 content-center text-sm resize-none overflow-auto border border-gray-300 rounded-full px-4 py-2 outline-none focus:ring-1 focus:ring-blue-400"
             />
             <button
               onClick={sendMessage}
@@ -97,7 +97,7 @@ export default function ChatContextInput({ onSubmit, onBack }) {
         <div className="flex justify-between pt-2 px-[1px]">
           <button
             onClick={onBack}
-            className="bg-white w-full text-[#0575e6] border border-[#0575e6] px-4 py-2 rounded-[50px] hover:bg-[#0575e6] hover:border-[#0575e6] hover:text-white transition"
+            className="bg-white h-13 w-full text-[#0575e6] border border-[#0575e6] px-4 py-2 rounded-[50px] hover:bg-[#0575e6] hover:border-[#0575e6] hover:text-white transition"
           >
             Back
           </button>

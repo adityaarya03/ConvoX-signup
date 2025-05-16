@@ -30,7 +30,7 @@ export default function InputField({
           onChange={onChange}
           required={required}
           placeholder={label}
-          className="pl-10 pr-10 w-full block outline-gray-200 text-sm h-11 text-gray-500 outline rounded-[50px] px-4 py-2"
+          className="pl-10 pr-10 w-full block outline-gray-200 text-sm h-13 text-gray-500 outline rounded-[50px] px-4 py-2"
         />
 
         {isPassword && (
