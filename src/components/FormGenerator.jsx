@@ -1,6 +1,7 @@
 import { useFormData } from "../context/FormContext";
 import InputField from "./InputField";
 import { useState } from "react";
+import ChatContextInput from "./ChatContextInput";
 
 export default function FormGenerator({
   step,
@@ -44,16 +45,26 @@ export default function FormGenerator({
 
   return (
     <>
+        <div className="w-6/7">
       <h2 className="text-2xl font-semibold text-gray-800 left-0 mx-1">
         {currentStep.title}
       </h2>
       <p className="text-gray-500 text-sm mb-6 left-0 mx-1">
         {currentStep.subtitle}
       </p>
+        </div>
 
-      {step < 4 ? (
+      {step === 3 ? (
+        <ChatContextInput
+          onSubmit={(value) => {
+            setFormData({ ...formData, context: value });
+            nextStep();
+          }}
+          onBack={prevStep}
+        />
+      ) : step < 4 ? (
         <form
-          className="space-y-6 flex flex-col items-center"
+          className="space-y-6 w-6/7 flex flex-col items-center"
           onSubmit={onSubmit}
         >
           {currentStep.fields.map(({ label, key, type, icon }) => (

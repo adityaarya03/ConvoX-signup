@@ -2,7 +2,7 @@ import "./LeftPanel.css";
 
 export default function LeftPanel() {
   return (
-    <div className="relative h-auto w-3/4 text-white flex flex-col justify-center items-start px-16 py-20 left-panel overflow-hidden">
+    <div className="relative h-auto w-3/5 text-white flex flex-col justify-center items-start px-16 py-20 left-panel overflow-hidden">
       {/* Floating blurred circles */}
       <div className="absolute top-[-160px] left-[-160px] w-[400px] h-[400px] bg-[#02298a] rounded-full blur-xl opacity-40 animate-float-random z-0"></div>
       <div className="absolute top-1/3 left-1/3 w-[200px] h-[200px] bg-[#02298a] rounded-full blur-xl opacity-40 animate-float-random delay-300 z-0"></div>
@@ -13,9 +13,9 @@ export default function LeftPanel() {
           alt=""
         />
       </div>
-      <div className=" absolute bottom-1/2 right-[100px] w-[300px] h-[300px] opacity-50 animate-float-random delay-700 z-0">
+      <div className=" absolute bottom-1/2 right-[300px] w-[200px] h-[200px] blur-sm opacity-50 animate-float-random-opposite delay-700 z-0">
         <img
-          src="https://res.cloudinary.com/dhzaw6nix/image/upload/v1747390693/msg-floating_b02nxy.png"
+          src="https://res.cloudinary.com/dhzaw6nix/image/upload/v1747403536/whitechatty_vcatro.png"
           alt=""
         />
       </div>

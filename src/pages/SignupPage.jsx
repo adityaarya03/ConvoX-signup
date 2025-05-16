@@ -64,7 +64,7 @@ export default function SignupPage() {
     },
     {
       title: "Company Information",
-      subtitle: "Tell us about your company",
+      subtitle: "To tailor your experience, please share details about your organization",
       fields: [
         {
           label: "Company Name",
@@ -108,7 +108,7 @@ export default function SignupPage() {
     },
     {
       title: "Business Description",
-      subtitle: "Give us context about your business",
+      subtitle: "Give us context about your business, products, or services",
       fields: [{ label: "Business Description", key: "context" }],
     },
     {
