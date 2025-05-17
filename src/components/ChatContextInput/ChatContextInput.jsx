@@ -46,7 +46,7 @@ export default function ChatContextInput({ onSubmit, onBack }) {
 
   return (
     <div
-      className={`transition-all duration-700 ease-in-out overflow-hidden ${
+      className={`transition-all z-1 duration-700 ease-in-out overflow-hidden ${
         expanded ? "h-[30em]" : "h-[4px]"
       }`}
     >
@@ -83,11 +83,11 @@ export default function ChatContextInput({ onSubmit, onBack }) {
               onChange={(e) => setInput(e.target.value)}
               onKeyDown={handleKeyDown}
               placeholder="Type a message..."
-              className="flex-grow h-13 content-center text-sm resize-none overflow-auto border border-gray-300 rounded-full px-4 py-2 outline-none focus:ring-1 focus:ring-blue-400"
+              className="flex-grow md:bg-transparent bg-white h-13 content-center text-sm resize-none overflow-auto border border-gray-300 rounded-full px-4 py-2 outline-none focus:ring-1 focus:ring-blue-400"
             />
             <button
               onClick={sendMessage}
-              className="text-blue-600 hover:text-blue-800 p-2"
+              className="text-blue-600 md:bg-transparent bg-white rounded-full hover:text-blue-800 p-2"
             >
               <IoSend size={24} />
             </button>

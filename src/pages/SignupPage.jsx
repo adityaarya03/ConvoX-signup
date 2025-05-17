@@ -1,7 +1,7 @@
 import React, { useState } from "react";
-import LeftPanel from "../components/LeftPanel.jsx";
-import RightPanel from "../components/RightPanel.jsx";
-import FormGenerator from "../components/FormGenerator.jsx";
+import LeftPanel from "../components/LeftPanel/LeftPanel.jsx";
+import RightPanel from "../components/RightPanel/RightPanel.jsx";
+import FormGenerator from "../components/FormGenerator/FormGenerator.jsx";
 
 import { FaUser, FaLock, FaBriefcase } from "react-icons/fa";
 import { MdOutlineMail, MdOutlineAddLink } from "react-icons/md";
@@ -120,7 +120,7 @@ export default function SignupPage() {
   ];
 
   return (
-    <div className=" min-h-screen flex">
+    <div className=" min-h-screen w-full flex">
       <LeftPanel />
       <RightPanel>
         <FormGenerator

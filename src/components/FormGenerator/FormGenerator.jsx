@@ -1,7 +1,7 @@
-import { useFormData } from "../context/FormContext";
-import InputField from "./InputField";
+import { useFormData } from "../../context/FormContext";
+import InputField from "../InputField/InputField";
 import { useState } from "react";
-import ChatContextInput from "./ChatContextInput";
+import ChatContextInput from "../ChatContextInput/ChatContextInput";
 import jwtEncode from "jwt-encode";
 import { useNavigate } from "react-router-dom";
 
@@ -72,12 +72,12 @@ export default function FormGenerator({
   const currentStep = stepsConfig[step - 1];
 
   return (
-    <>
-      <div className="w-6/7">
-        <h2 className="text-2xl font-semibold text-gray-800 left-0 mx-1">
+    <>   
+      <div className="md:w-6/7 w-11/12 z-1">
+        <h2 className="text-2xl font-semibold text-white md:text-gray-800 left-0 mx-1">
           {currentStep.title}
         </h2>
-        <p className="text-gray-500 text-sm mb-6 left-0 mx-1">
+        <p className="md:text-gray-500 text-white text-sm mb-6 left-0 mx-1">
           {currentStep.subtitle}
         </p>
       </div>
@@ -92,7 +92,7 @@ export default function FormGenerator({
         />
       ) : step < 4 ? (
         <form
-          className="space-y-6 w-6/7 flex flex-col items-center"
+          className="space-y-6 md:w-6/7 w-11/12 flex flex-col items-center z-1"
           onSubmit={onSubmit}
         >
           {currentStep.fields.map(({ label, key, type, icon }) => (
@@ -135,7 +135,7 @@ export default function FormGenerator({
           </div>
         </form>
       ) : (
-        <div className="w-6/7">
+        <div className="md:w-6/7 w-11/12 z-1">
           <div className="flex justify-between w-full">
             <button
               onClick={prevStep}
