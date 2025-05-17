@@ -16,8 +16,8 @@ export function FormProvider({ children }) {
     company_size: '',
     company_website: '',
     context: '',
-    selected_plan: '',
-    payment_method: '',
+    selected_plan: 'free',
+    payment_method: 'credits',
   });
 
   return (

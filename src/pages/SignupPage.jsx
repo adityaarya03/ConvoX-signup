@@ -64,10 +64,11 @@ export default function SignupPage() {
     },
     {
       title: "Company Information",
-      subtitle: "To tailor your experience, please share details about your organization",
+      subtitle:
+        "To tailor your experience, please share details about your organization",
       fields: [
         {
-          label: "Company Name",
+          label: "Company Name Eg: Walrus",
           key: "company_name",
           icon: FaBriefcase,
           validation: {
@@ -76,7 +77,7 @@ export default function SignupPage() {
           },
         },
         {
-          label: "Nature of Business",
+          label: "Nature of Business Eg: Finance",
           key: "company_nature_of_business",
           icon: BsBuildingsFill,
           validation: {
@@ -85,12 +86,12 @@ export default function SignupPage() {
           },
         },
         {
-          label: "Company Size",
+          label: "Company Revenue Eg: 300Cr",
           key: "company_size",
           icon: HiUserGroup,
           validation: {
-            regex: /^\d+$/,
-            message: "Company size must be a number.",
+            regex: /^\d+\s*(k|l|cr)?$/i,
+            message: "Company revenue must be a number like 90L, 300Cr.",
           },
         },
         {
@@ -112,8 +113,8 @@ export default function SignupPage() {
       fields: [{ label: "Business Description", key: "context" }],
     },
     {
-      title: "Choose a Plan & Payment",
-      subtitle: "Select a plan and payment method",
+      title: "Yay, You're All Set!",
+      subtitle: "You can now start using our services",
       fields: [],
     },
   ];
