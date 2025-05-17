@@ -83,7 +83,7 @@ export default function ChatContextInput({ onSubmit, onBack }) {
               onChange={(e) => setInput(e.target.value)}
               onKeyDown={handleKeyDown}
               placeholder="Type a message..."
-              className="flex-grow md:bg-transparent bg-white h-13 content-center text-sm resize-none overflow-auto border border-gray-300 rounded-full px-4 py-2 outline-none focus:ring-1 focus:ring-blue-400"
+              className="flex-grow md:bg-transparent bg-white h-13 content-center text-[16px] md:text-sm resize-none overflow-auto border border-gray-300 rounded-full px-4 py-2 outline-none focus:ring-1 focus:ring-blue-400"
             />
             <button
               onClick={sendMessage}

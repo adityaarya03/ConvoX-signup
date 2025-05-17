@@ -10,6 +10,7 @@ export default function RightPanel({ children }) {
           alt="Logo"
           className="rounded-xl"
         />
+        <div className="text-white text-2xl font-bold">ConvoX</div>
       </div>
       <div className="md:hidden absolute top-[-160px] left-[-160px] w-[400px] h-[400px] bg-[#02298a] rounded-full blur-xl opacity-40 animate-float-random z-0"></div>
       <div className="md:hidden absolute top-1/3 left-1/3 w-[200px] h-[200px] bg-[#02298a] rounded-full blur-xl opacity-40 delay-300 animate-float-random-opposite z-0"></div>
