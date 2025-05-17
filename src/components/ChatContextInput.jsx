@@ -47,7 +47,7 @@ export default function ChatContextInput({ onSubmit, onBack }) {
   return (
     <div
       className={`transition-all duration-700 ease-in-out overflow-hidden ${
-        expanded ? "h-[300px]" : "h-[4px]"
+        expanded ? "h-[30em]" : "h-[4px]"
       }`}
     >
       <div className="w-full h-full flex flex-col gap-4">
