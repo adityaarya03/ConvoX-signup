@@ -113,8 +113,8 @@ export default function SignupPage() {
       fields: [{ label: "Business Description", key: "context" }],
     },
     {
-      title: "Yay, You're All Set!",
-      subtitle: "You can now start using our services",
+      title: "Yay, You're all set!",
+      subtitle: "Complete your signup to start using our services",
       fields: [],
     },
   ];

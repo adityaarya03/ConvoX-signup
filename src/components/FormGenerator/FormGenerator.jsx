@@ -14,6 +14,7 @@ export default function FormGenerator({
   const [errors, setErrors] = useState({});
   const navigate = useNavigate();
   const secret = import.meta.env.VITE_JWT_SECRET;
+  const [final, setFinal] = useState(true);
 
   const validateFields = () => {
     const newErrors = {};
@@ -42,6 +43,7 @@ export default function FormGenerator({
 
   const onFinalSubmit = async () => {
     try {
+      setFinal(false);
       const token = jwtEncode(formData, secret, { alg: "HS256" });
 
       const response = await fetch(
@@ -57,6 +59,7 @@ export default function FormGenerator({
       );
 
       if (response.ok) {
+        setFinal(true);
         window.location.href =
           "https://dashboard.heywalrus.in/app/convox-v1-0/login-682603059ec32534dc791ebd";
       } else {
@@ -145,9 +148,9 @@ export default function FormGenerator({
             </button>
             <button
               onClick={onFinalSubmit}
-              className="bg-[#0575e6] text-white h-13 px-4 py-3 rounded-[50px] hover:bg-[#1e8cfa] transition"
+              className={`${final?"bg-[#0575e6]":"bg-[#1e8cfa]"} text-white h-13 px-4 py-3 rounded-[50px] hover:bg-[#1e8cfa] transition`}
             >
-              Complete
+              {final ? "Complete" : "Submitting..."}
             </button>
           </div>
         </div>

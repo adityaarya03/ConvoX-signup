@@ -43,7 +43,7 @@ export default function InputField({
         )}
       </div>
       {error && (
-        <p className="w-full text-sm text-red-500 mt-1 px-3">{error}</p>
+        <p className="w-full text-sm text-red-400 md:text-red-500 mt-1 px-3">{error}</p>
       )}
     </div>
   );
