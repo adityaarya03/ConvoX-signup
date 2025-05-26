@@ -142,16 +142,23 @@ const ChatWidget = () => {
               onChange={(e) => setInput(e.target.value)}
               onKeyDown={(e) => e.key === "Enter" && handleSend()}
               placeholder="Type your message..."
-              className="flex-1 px-4 h-10 text-sm py-2 rounded-full border bg-white border-gray-300 focus:outline-none"
-              style={{ fontFamily }}
+              className="flex-1 px-3 h-10 rounded-full border bg-white border-gray-300 text-sm"
+              style={{
+                fontFamily,
+                boxSizing: "border-box",
+                lineHeight: "1.25",
+                WebkitAppearance: "none",
+                appearance: "none",
+                WebkitFontSmoothing: "antialiased",
+                MozOsxFontSmoothing: "grayscale",
+              }}
             />
-
             <button
               onClick={handleSend}
-              className="h-10 aspect-square flex items-center justify-center bg-[var(--primaryColor)] text-white rounded-full"
+              className="h-10 w-10 flex items-center justify-center rounded-full text-white"
               style={{ backgroundColor: primaryColor }}
             >
-              <IoSend size={20} />
+              <IoSend size={18} />
             </button>
           </div>
         </div>
