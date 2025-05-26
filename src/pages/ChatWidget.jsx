@@ -148,10 +148,10 @@ const ChatWidget = () => {
 
             <button
               onClick={handleSend}
-              className="bg-[var(--primaryColor)] text-white px-4 py-2 rounded-full text-sm"
+              className="h-10 aspect-square flex items-center justify-center bg-[var(--primaryColor)] text-white rounded-full"
               style={{ backgroundColor: primaryColor }}
             >
-              <IoSend size={24} />
+              <IoSend size={20} />
             </button>
           </div>
         </div>
