@@ -135,7 +135,7 @@ const ChatWidget = () => {
           </div>
 
           {/* Input */}
-          <div className="p-2 bg-[var(--secondaryColor)] flex items-center gap-2 border-t border-gray-300">
+          <div className="p-2 bg-[var(--secondaryColor)] w-full flex items-center gap-2 border-t border-gray-300">
             <input
               type="text"
               value={input}
