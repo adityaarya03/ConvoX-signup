@@ -77,21 +77,43 @@ export default function SignupPage() {
           },
         },
         {
-          label: "Nature of Business Eg: Finance",
+          label: "Nature of Business",
           key: "company_nature_of_business",
           icon: BsBuildingsFill,
+          type: "select",
+          options: [
+            "IT",
+            "FinTech",
+            "Retail",
+            "Logistics",
+            "Healthcare",
+            "Education",
+            "Manufacturing",
+            "Hospitality",
+            "E-commerce",
+            "Consulting",
+            "Other",
+          ],
           validation: {
             regex: /^.{2,}$/,
-            message: "Please enter the nature of your business.",
+            message: "Please select the nature of your business.",
           },
         },
         {
-          label: "Company Revenue Eg: 300Cr",
+          label: "Company Revenue",
           key: "company_size",
           icon: HiUserGroup,
+          type: "select",
+          options: [
+            "< 1 Lakh",
+            "1 Lakh - 10 Lakh",
+            "10 Lakh - 1 Crore",
+            "1 Crore - 100 Crore",
+            "> 100 Crore",
+          ],
           validation: {
-            regex: /^\d+\s*(k|l|cr)?$/i,
-            message: "Company revenue must be a number like 90L, 300Cr.",
+            regex: /^.+$/, // basic validation to ensure something is selected
+            message: "Please select your company revenue range.",
           },
         },
         {

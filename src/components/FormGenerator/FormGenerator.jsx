@@ -98,7 +98,7 @@ export default function FormGenerator({
           className="space-y-6 md:w-6/7 w-11/12 flex flex-col items-center z-1"
           onSubmit={onSubmit}
         >
-          {currentStep.fields.map(({ label, key, type, icon }) => (
+          {currentStep.fields.map(({ label, key, type, icon, options }) => (
             <InputField
               key={key}
               label={label}
@@ -107,6 +107,7 @@ export default function FormGenerator({
               value={formData[key] || ""}
               onChange={handleChange(key)}
               error={errors[key]}
+              {...(options ? { options } : {})}
             />
           ))}
 
