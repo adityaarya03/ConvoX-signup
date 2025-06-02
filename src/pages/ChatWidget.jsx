@@ -1,30 +1,35 @@
 import React, { useEffect, useRef, useState } from "react";
 import { IoSend } from "react-icons/io5";
-import { RiRobot3Fill } from "react-icons/ri";
 
 const ChatWidget = () => {
   const urlParams = new URLSearchParams(window.location.search);
-  const primaryColor = urlParams.get("primaryColor") || "#0675E6";
-  const secondaryColor = urlParams.get("secondaryColor") || "#e6f0ff";
-  const fontFamily = urlParams.get("fontFamily") || "Inter";
-  const userId = urlParams.get("user_id");
+  const primaryColor = urlParams.get("sanitizedPrimary")?.trim() || "#0675E6";
+  const secondaryColor =
+    urlParams.get("sanitizedSecondary")?.trim() || "#FFFFFF";
+  const fontFamily =
+    urlParams.get("sanitizedFont")?.trim() || "Poppins, sans-serif";
+  const companionName =
+    urlParams.get("companionName")?.trim() || "Chat Assistant";
+  const userId = urlParams.get("user_id")?.trim();
+  const widetWidth = urlParams.get("sanitizedWidth");
 
   const [isOpen, setIsOpen] = useState(false);
-  const [sessionId] = useState(() =>
-    Math.random().toString(36).substring(2, 10)
-  );
-  const [messages, setMessages] = useState([]);
   const [input, setInput] = useState("");
+  const [messages, setMessages] = useState([]);
   const [isTyping, setIsTyping] = useState(false);
+  const [sessionId] = useState(
+    () => "sess_" + Math.random().toString(36).substring(2, 10)
+  );
   const messagesEndRef = useRef(null);
+  const textareaRef = useRef(null);
 
   useEffect(() => {
     if (!userId) {
-      document.body.innerHTML = `<h3 style="font-family:${fontFamily};color:red;text-align:center;margin-top:2rem;">Error: Missing user_id</h3>`;
+      document.body.innerHTML = `<h3 style="font-family:${fontFamily};text-align:center;margin-top:2rem;">Error: Missing user_id</h3>`;
     }
 
     document.body.style.fontFamily = fontFamily;
-  }, [fontFamily, userId]);
+  }, [userId, fontFamily]);
 
   useEffect(() => {
     if (messagesEndRef.current) {
@@ -32,16 +37,29 @@ const ChatWidget = () => {
     }
   }, [messages, isTyping]);
 
-  const toggleChat = () => setIsOpen(!isOpen);
+  const toggleChat = () => {
+    setIsOpen((prev) => !prev);
+  };
+
+  const adjustHeight = () => {
+    const el = textareaRef.current;
+    if (el) {
+      el.style.height = "auto";
+      el.style.height = Math.min(el.scrollHeight, 80) + "px";
+    }
+  };
+
+  const appendMessage = (from, text) => {
+    setMessages((prev) => [...prev, { from, text }]);
+  };
 
   const handleSend = async () => {
-    if (!input.trim()) return;
+    const message = input.trim();
+    if (!message) return;
 
-    const userMessage = input.trim();
-    const timestamp = new Date().toLocaleString("en-GB");
-
-    setMessages((prev) => [...prev, { from: "user", text: userMessage }]);
+    appendMessage("user", message);
     setInput("");
+    adjustHeight();
     setIsTyping(true);
 
     try {
@@ -53,117 +71,144 @@ const ChatWidget = () => {
           body: JSON.stringify({
             user_id: userId,
             session_id: sessionId,
-            timestamp,
-            user_message: userMessage,
+            timestamp: new Date().toLocaleString("en-GB"),
+            user_message: message,
           }),
         }
       );
 
       const data = await res.json();
+      setIsTyping(false);
 
       const botReply =
         Array.isArray(data) && data.length > 0
           ? data[data.length - 1].response
           : "Sorry, something went wrong.";
 
-      setMessages((prev) => [...prev, { from: "bot", text: botReply }]);
-    } catch {
-      setMessages((prev) => [
-        ...prev,
-        { from: "bot", text: "Error connecting to server." },
-      ]);
-    } finally {
+      appendMessage("bot", botReply);
+    } catch (err) {
+      console.error(err);
       setIsTyping(false);
+      appendMessage("bot", "Error contacting server.");
     }
   };
 
   return (
-    <div>
+    <>
       {/* Toggle Button */}
-      <button
+      <div
         onClick={toggleChat}
-        className="fixed bottom-5 right-5 w-[60px] h-[60px] rounded-full bg-[var(--primaryColor)] text-white text-2xl flex items-center justify-center shadow-lg z-50"
-        style={{ backgroundColor: primaryColor, fontFamily }}
+        className="fixed bottom-5 right-5 w-[60px] h-[60px] rounded-full text-white text-2xl flex items-center justify-center shadow-lg z-[999] cursor-pointer"
+        style={{ backgroundColor: primaryColor }}
       >
-        <RiRobot3Fill />
-      </button>
+        {isOpen ? (
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            fill="none"
+            height="24"
+            width="24"
+            viewBox="0 0 24 24"
+          >
+            <path stroke="#fff" strokeWidth="2" d="M6 6L18 18M6 18L18 6" />
+          </svg>
+        ) : (
+          <svg
+            id="chatIcon"
+            xmlns="http://www.w3.org/2000/svg"
+            fill="none"
+            height="24"
+            viewBox="0 0 24 24"
+            width="24"
+          >
+            <path fill="#ffffff" d="M8 7H16V9H8V7Z" />
+            <path fill="#ffffff" d="M14 11H8V13H14V11Z" />
+            <path
+              fill="#ffffff"
+              d="M19.2 3C20.19 3 20.99 3.81 20.99 4.8L21 21L17.4 17.4H4.8C3.81 17.4 3 16.59 3 15.6V4.8C3 3.81 3.81 3 4.8 3H19.2Z"
+            />
+          </svg>
+        )}
+      </div>
 
       {/* Chat Box */}
-      {isOpen && (
+      <div
+        className={`fixed bottom-[90px] right-3 w-[90%] sm:w-[370px] h-[70vh] rounded-2xl overflow-hidden flex flex-col shadow-lg z-[998] transition-all duration-300 ${
+          isOpen
+            ? "scale-100 opacity-100 pointer-events-auto"
+            : "scale-95 opacity-0 pointer-events-none"
+        }`}
+        style={{ backgroundColor: secondaryColor }}
+      >
+        {/* Header */}
         <div
-          className="fixed bottom-[90px] right-5 w-[350px] h-[450px] rounded-3xl overflow-hidden border shadow-xl flex flex-col z-40"
-          style={{
-            backgroundColor: "white",
-            borderColor: primaryColor,
-            fontFamily,
-          }}
+          className="h-16 text-white flex flex-col justify-center px-6"
+          style={{ backgroundColor: primaryColor }}
         >
-          <div className="h-12" style={{ backgroundColor: primaryColor }}></div>
-
-          <div className="flex-1 overflow-y-auto p-3 space-y-2">
-            {messages.map((msg, index) => (
-              <div
-                key={index}
-                className={`flex ${
-                  msg.from === "user" ? "justify-end" : "justify-start"
-                }`}
-              >
-                <span
-                  className={`px-3 py-2 rounded-2xl max-w-[80%] text-sm ${
-                    msg.from === "user"
-                      ? "bg-[var(--primaryColor)] text-white"
-                      : "bg-gray-200 text-black"
-                  }`}
-                  style={
-                    msg.from === "user" ? { backgroundColor: primaryColor } : {}
-                  }
-                >
-                  {msg.text}
-                </span>
-              </div>
-            ))}
-
-            {isTyping && (
-              <div className="flex justify-start">
-                <span className="bg-gray-200 text-black px-3 py-2 rounded-2xl text-sm animate-pulse">
-                  typing<span className="animate-bounce">...</span>
-                </span>
-              </div>
-            )}
-
-            <div ref={messagesEndRef} />
-          </div>
-
-          {/* Input */}
-          <div className="p-2 bg-[var(--secondaryColor)] w-full flex items-center gap-2 border-t border-gray-300">
-            <input
-              type="text"
-              value={input}
-              onChange={(e) => setInput(e.target.value)}
-              onKeyDown={(e) => e.key === "Enter" && handleSend()}
-              placeholder="Type your message..."
-              className="flex-1 px-3 h-10 rounded-full border bg-white border-gray-300 text-sm"
-              style={{
-                fontFamily,
-                boxSizing: "border-box",
-                lineHeight: "1.25",
-                WebkitAppearance: "none",
-                appearance: "none",
-                WebkitFontSmoothing: "antialiased",
-                MozOsxFontSmoothing: "grayscale",
-              }}
-            />
-            <button
-              onClick={handleSend}
-              className="h-10 w-10 flex items-center justify-center rounded-full text-white"
-              style={{ backgroundColor: primaryColor }}
-            >
-              <IoSend size={18} />
-            </button>
-          </div>
+          <h1>{companionName}</h1>
+          <p className="text-xs text-100">Powered By ConvoX</p>
         </div>
-      )}
-    </div>
+
+        {/* Messages */}
+        <div
+          className="flex-1 overflow-y-auto p-3 flex flex-col gap-2"
+          id="chatMessages"
+        >
+          {messages.map((msg, i) => (
+            <div
+              key={i}
+              className={`${
+                msg.from === "user"
+                  ? "self-end text-white"
+                  : "self-start bg-gray-100 text-black"
+              } max-w-[80%] px-3 py-2 rounded-2xl text-sm leading-relaxed`}
+              style={
+                msg.from === "user" ? { backgroundColor: primaryColor } : {}
+              }
+            >
+              {msg.text}
+            </div>
+          ))}
+          {isTyping && (
+            <div className="self-start bg-gray-100 px-3 py-1.5 rounded-xl text-xs animate-pulse">
+              typing...
+            </div>
+          )}
+          <div ref={messagesEndRef} />
+        </div>
+
+        {/* Input */}
+        <div
+          className="flex gap-2 items-center p-2 border-t border-gray-300"
+          style={{ backgroundColor: secondaryColor }}
+        >
+          <textarea
+            ref={textareaRef}
+            value={input}
+            onChange={(e) => {
+              setInput(e.target.value);
+              adjustHeight();
+            }}
+            onKeyDown={(e) => {
+              if (e.key === "Enter" && !e.shiftKey) {
+                e.preventDefault();
+                handleSend();
+              }
+            }}
+            placeholder="How can we help you today..."
+            rows={1}
+            className="flex-1 bg-transparent px-3 py-2 text-sm focus:outline-none resize-none overflow-y-auto"
+            style={{ maxHeight: "80px" }}
+          />
+          <button
+            onClick={handleSend}
+            className="w-10 h-10 text-white text-lg rounded-full flex items-center justify-center"
+            style={{ backgroundColor: primaryColor }}
+          >
+            <IoSend size={19} />
+          </button>
+        </div>
+      </div>
+    </>
   );
 };
 

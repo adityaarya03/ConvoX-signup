@@ -11,11 +11,12 @@ export default function InputField({
   required = true,
   icon: Icon,
   error,
-  options,
+  options
 }) {
   const [showPassword, setShowPassword] = useState(false);
   const isPassword = type === "password";
   const inputType = isPassword ? (showPassword ? "text" : "password") : type;
+  const isDatalist = type === "datalist";
 
   return (
     <div className="w-full flex flex-col justify-center">
@@ -26,7 +27,23 @@ export default function InputField({
           </span>
         )}
 
-        {type === "select" ? (
+        {isDatalist ? (
+          <>
+            <input
+              list={`${label}-list`}
+              value={value}
+              onChange={onChange}
+              required={required}
+              placeholder={label}
+              className="pl-10 pr-10 md:bg-transparent bg-white w-full block outline-gray-200 text-[16px] md:text-sm h-13 text-gray-700 outline rounded-[50px] px-4 py-2"
+            />
+            <datalist id={`${label}-list`}>
+              {options?.map((option, idx) => (
+                <option key={idx} value={option} />
+              ))}
+            </datalist>
+          </>
+        ) : type === "select" ? (
           <select
             value={value}
             onChange={onChange}
@@ -61,7 +78,7 @@ export default function InputField({
             {showPassword ? <IoMdEye /> : <LuEyeClosed />}
           </span>
         )}
-        {type === "select" && (
+        {(type === "select" || isDatalist) && (
           <span className="absolute right-4 top-1/2 transform -translate-y-1/2 text-gray-400 pointer-events-none">
             <IoIosArrowDropdown />
           </span>
