@@ -23,6 +23,8 @@ const ChatWidget = () => {
   const messagesEndRef = useRef(null);
   const textareaRef = useRef(null);
 
+  
+
   useEffect(() => {
     if (!userId) {
       document.body.innerHTML = `<h3 style="font-family:${fontFamily};text-align:center;margin-top:2rem;">Error: Missing user_id</h3>`;
@@ -38,7 +40,9 @@ const ChatWidget = () => {
   }, [messages, isTyping]);
 
   const toggleChat = () => {
+    const newState = !isOpen;
     setIsOpen((prev) => !prev);
+    window.parent?.postMessage(newState ? 'openChat' : 'closeChat', '*');
   };
 
   const adjustHeight = () => {
